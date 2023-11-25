@@ -5,31 +5,27 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
 	
-	
+	private:
+	void helpme(int i,int j,int n,int arr[])
+	{
+	    if(j>=n)
+	        return;
+	        
+	   int a = arr[i];
+	   int b = arr[j];
+	   
+	   helpme(i+1,j+1,n,arr);
+	   
+	   arr[i*2]=a;
+	   arr[(i*2)+1]=b;
+	}
 	
 	public:
 	void shuffleArray(int arr[],int n)
 	{
-	    // Your code goes here
-	    int dup[n]={0};
-	    int cur=0;
-	    
-	    for(int i=0;i<n;i+=2)
-	    {
-	        dup[i]=arr[cur];
-	        cur++;
-	    }
-	    
-	    cur=n/2;
-	    
-	    for(int i=1;i<n;i+=2)
-	    {
-	        dup[i]=arr[cur];
-	        cur++;
-	    }
-	    
-	    for(int i=0;i<n;i++)
-	        arr[i]=dup[i];
+        int i=0,j=n/2;
+        
+        helpme(i,j,n,arr);
 	}
 		 
 
