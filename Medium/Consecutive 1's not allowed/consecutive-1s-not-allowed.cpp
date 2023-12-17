@@ -11,18 +11,23 @@ public:
 	// #define ll long long
 	ll countStrings(int n) {
 	    // code here
-	    int m = 1e9 +7;
+	   // pen paper intuition gives rise to fib series
+	   if(n<=2)
+	        return n+1;
+	        
+	    int mod = 1e9 +7;
         ll a =2;
         ll b =3;
+        ll third=0;
         
-        for(int i=2;i<=n;i++)
+        for(int i=2;i<n;i++)
         {
-            ll temp = (a+b)%m;
+            third = (a+b)%mod;
             a = b;
-            b = temp;
+            b = third;
         }
         
-        return a;
+        return third;
 	}
 };
 
