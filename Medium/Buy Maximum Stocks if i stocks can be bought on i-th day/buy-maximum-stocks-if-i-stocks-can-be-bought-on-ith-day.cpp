@@ -9,24 +9,36 @@ class Solution {
 public:
     int buyMaximumProducts(int n, int k, int price[]){
         //Write your code here
-        int sum=0, count=0;
-        multimap<int, int> mp; 
+        int ans=0;
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
         
-        for(int i=0; i<n; i++)
-            mp.insert({price[i], i+1});
-        
-        
-        for(auto it : mp)
-        {
-            if(((k-sum)/(it.first))==0)
-                break;
+        for(int i=0;i<n;i++)
+            pq.push({price[i],i+1});
             
-            int x = min(((k-sum)/(it.first)), it.second);
-            count+=x;
-            sum += x*(it.first);
+        
+        while(!pq.empty())
+        {
+            int kimmat = pq.top().first;
+            int amount = pq.top().second;
+            
+            if(kimmat*amount <= k)
+            {
+                k-=kimmat*amount;
+                ans+=amount;
+            }
+            else
+            {
+                int num = k/kimmat;
+                
+                k-=(num*kimmat);
+                ans+=num;
+                break;
+            }
+            
+            pq.pop();
         }
         
-        return count;
+        return ans;
     }
 };
 
