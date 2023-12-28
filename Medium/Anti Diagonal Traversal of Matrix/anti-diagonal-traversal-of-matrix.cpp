@@ -8,37 +8,31 @@ class Solution {
   public:
     vector<int> antiDiagonalPattern(vector<vector<int>> matrix) 
     {
-        // Code here
+        // approach here is to gather all edge element pairs, for further traversals
+        vector<pair<int,int>> indexes;
         vector<int> ans;
-        vector<int> half;
         int n = matrix.size();
         
         // first row traverse
         for(int i=0;i<n;i++)
+            indexes.push_back({0,i});
+        
+        // last col traverse
+        for(int i=1;i<n;i++)
+            indexes.push_back({i,n-1});
+        
+        for(pair<int,int> p:indexes)
         {
-            int temp=0;
+            int row=p.first;
+            int col=p.second;
             
-            for(int j=i;j>=0;j--)
+            while(row<n && col>=0)
             {
-                ans.push_back(matrix[temp++][j]);
+                ans.push_back(matrix[row][col]);
+                row++;
+                col--;
             }
         }
-        
-        int j_pos=n-1;
-        // reverse last row traverse
-        for(int i=n-1;i>0;i--)
-        {
-            int temp=n-1;
-            
-            for(int j=j_pos;j<n;j++)
-            {
-                half.push_back(matrix[temp--][j]);
-            }
-            j_pos--;
-        }
-        
-        for(int i=half.size()-1;i>=0;i--)
-            ans.push_back(half[i]);
         
         return ans;
     }
