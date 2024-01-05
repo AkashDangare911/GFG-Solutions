@@ -12,17 +12,26 @@ class Solution {
   public:
     int singleElement(int arr[] ,int n) 
     {
-        unordered_map<int,int> mp;
-        for(int i=0;i<n;i++)
-            mp[arr[i]]++;
-            
-        for(pair<int,int> p:mp)
+        int ans=0,count=0;
+        
+        for(int i=0;i<32;i++)
         {
-            if(p.second == 1)
-                return p.first;
+            count=0;
+            // check if i'th bit is set or not
+            for(int j=0;j<n;j++)
+            {
+                if(((arr[j]>>i)&1)==1)
+                    count++;
+            }
+            
+            // if total set bits for cur pos is not multiple of 3, then the pos is 
+            // gettting countributed by another number
+            if(count%3 != 0)
+                ans+=(1<<i);
         }
         
-        return -1;
+        
+        return ans;
     }
 };
 
