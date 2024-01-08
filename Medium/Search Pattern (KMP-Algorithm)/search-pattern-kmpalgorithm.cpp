@@ -10,15 +10,38 @@ class Solution
         vector <int> search(string pat, string txt)
         {
             vector<int> ans;
-            int n = txt.size()-pat.size();
+            int tSize = txt.size(),pSize=pat.size();
             
-            for(int i=0;i<=n;i++)
+            // calculated ascii sum of pat
+            int sum=0;
+            for(int j=0;j<pSize;j++)
+                sum+=pat[j];
+                
+            // using sliding window and checking the ascii sum
+            int cur=0;
+            int i=0,j=0;
+            for(j=0;j<pSize;j++)
+                cur+=txt[j];
+                
+    
+            while(j<tSize)
             {
-                if(txt[i]==pat[0])
+                if(cur==sum && (txt[i]==pat[0]))
                 {
-                    if(txt.substr(i,pat.size())==pat)
+                    if(txt.substr(i,pSize)==pat)
                         ans.push_back(i+1);
                 }
+                
+                cur+=txt[j];
+                cur-=txt[i];
+                i++,j++;
+            }
+            
+            // for last index 
+            if(cur==sum && (txt[i]==pat[0]))
+            {
+                if(txt.substr(i,pSize)==pat)
+                    ans.push_back(i+1);
             }
             
             if(ans.size()==0)
