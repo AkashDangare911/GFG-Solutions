@@ -11,26 +11,19 @@ class Solution
     vector<int> repeatedRows(vector<vector<int>> &matrix, int M, int N) 
     { 
         vector<int> ans;
-        map<vector<int>, vector<int>> mp;
+        map<vector<int>, int> mp;
         int i=0;
         
         for(vector<int> v:matrix)
         {
-            mp[v].push_back(i);
+            mp[v]++;
+            if(mp[v]>1)
+                ans.push_back(i);
             i++;
         }
         
-        for(pair<vector<int>,vector<int>> p:mp)
-        {
-            int n = p.second.size();
-            
-            for(int i=1;i<n;i++)
-                ans.push_back(p.second[i]);
-        }
-        
-        sort(ans.begin(),ans.end());
         return ans;
-    } 
+    }
 };
 
 
