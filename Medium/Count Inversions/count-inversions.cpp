@@ -8,46 +8,41 @@ class Solution{
     long long merge(long long arr[], long long l, long long m, long long r)
     {
         long long i=l,j=m+1;
-        // long long temp[r+1];
-        vector<long long> temp;
-        // int k=0;
+        long long temp[r-l+1];
+        long long k=0;
         long long cnt=0;
         
         while(i<=m && j<=r)
         {
             if(arr[i]<=arr[j])
             {
-                // temp[k]=arr[i];
-                temp.push_back(arr[i]);
+                temp[k]=arr[i];
                 i++;
             }
             else
             {
-                // temp[k]=arr[j];
-                temp.push_back(arr[j]);
+                temp[k]=arr[j];
                 cnt+=(m-i+1);
                 j++;
             }
-            // k++;
+            k++;
         }
         
         while(i<=m)
         {
-            // temp[k++]=arr[i++];
-            temp.push_back(arr[i++]);
+            temp[k++]=arr[i++];
         }
         
         while(j<=r)
         {
-            temp.push_back(arr[j++]);
-            // temp[k++]=arr[j++];
+            temp[k++]=arr[j++];
         }
         
-        // k=0;
+        k=0;
         for(long long z=l;z<=r;z++)
         {
             arr[z]=temp[z-l];
-            // k++;
+            k++;
         }
         
         return cnt;
@@ -57,14 +52,16 @@ class Solution{
     {
         long long cnt=0;
         
-        if(l<r)
-        {
-            long long mid = (l+r)/2;
-            cnt += mergeSort(arr,l,mid);
-            cnt += mergeSort(arr,mid+1,r);
-            
-            cnt += merge(arr,l,mid,r);
-        }
+        if(l>=r)
+            return cnt;
+        
+        
+        long long mid = (l+r)/2;
+        cnt += mergeSort(arr,l,mid);
+        cnt += mergeSort(arr,mid+1,r);
+        
+        cnt += merge(arr,l,mid,r);
+        
         
         return cnt;
     }
