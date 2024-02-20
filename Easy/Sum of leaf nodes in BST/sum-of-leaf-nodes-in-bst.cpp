@@ -45,7 +45,6 @@ class Solution
             if(root->left==NULL && root->right==NULL)
                 return root->data;
                 
-            
             int ans = sumOfLeafNodes(root->left) + sumOfLeafNodes(root->right);
             
             return ans;
