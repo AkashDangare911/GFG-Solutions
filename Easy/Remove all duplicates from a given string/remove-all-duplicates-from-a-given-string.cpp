@@ -9,22 +9,31 @@ using namespace std;
 class Solution{
 public:
 	string removeDuplicates(string str) {
-	    int i=0,j=0;
-	    int n=str.size();
-	    int arr[256]={0};
+	    int low[26]={0};
+	    int upp[26]={0};
+	    string ans="";
 	    
-	    while(i<n)
+	    for(char c:str)
 	    {
-	        char c = str[i];
-	        arr[c]++;
-	        
-	        if(!(arr[c] > 1))
-	            str[j++]=str[i];
-	        
-	        i++;
+	       // uppercase letters
+	        if(c>='A' && c<='Z')
+	        {
+	            if(upp[c-'A']==0)
+	                ans+=c;
+	               
+	            upp[c-'A']++;
+	        }
+	       // lowercase letters
+	        else
+	        {
+	            if(low[c-'a']==0)
+	                ans+=c;
+	               
+	            low[c-'a']++;
+	        }
 	    }
 	    
-	    return str.substr(0,j);
+	    return ans;
 	}
 };
 
