@@ -2,16 +2,10 @@ class Solution {
   private:
       int precedence(char c)
       {
-          if(c=='^')
-            return 3;
-          else if (c=='*' || c=='/')
-            return 2;
-          else if(c=='+' || c=='-')
-            return 1;
-          else if(c=='(')
-            return 0;
-        
-            return -1;
+        if(c=='^') return 3;
+        if (c=='*' || c=='/') return 2;
+        if(c=='+' || c=='-')  return 1;
+        if(c=='(') return 0;
       }
       
       bool isOperand(char c)
@@ -43,7 +37,7 @@ class Solution {
                 }
                 st.pop();
             }
-            else if(!st.empty() && precedence(c) <= precedence(st.top()))
+            else
             {
                 while(!st.empty() && precedence(c) <= precedence(st.top()))
                 {
@@ -53,8 +47,6 @@ class Solution {
                 }
                 st.push(c);
             }
-            else
-                st.push(c);
         }
         
          while(!st.empty())
